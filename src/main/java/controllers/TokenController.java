@@ -23,7 +23,7 @@ public class TokenController {
     }
 
 
-    @PostMapping ("/add")
+    @PostMapping(value = "/add")
     public ResponseEntity addToken (@RequestBody Token token){
 
         Token searchToken = tokenRepo.findByTokenNameAndToken(token.getTokenName(), token.getToken());
