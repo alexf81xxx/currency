@@ -14,10 +14,10 @@ public class CurrencyApplication {
 
 
 		String tokenName = Scan.getTokenName();
-		String token = Scan.getTokenName();
+		//String token = Scan.getTokenName();
 
 
-		CurrencyConnect.getCurrencyAPI();
+		//CurrencyConnect.getCurrencyAPI();
 	}
 
 }
