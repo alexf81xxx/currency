@@ -1,4 +1,4 @@
-package models;
+package com.example.currency.models;
 
 import java.util.Scanner;
 

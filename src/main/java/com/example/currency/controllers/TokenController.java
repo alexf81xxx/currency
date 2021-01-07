@@ -1,14 +1,14 @@
-package controllers;
+package com.example.currency.controllers;
 
 
-import models.Token;
+import com.example.currency.models.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import repo.TokenRepo;
+import com.example.currency.repo.TokenRepo;
 
 @RestController // В пакете Spring MVC
 @RequestMapping ("/api/token")

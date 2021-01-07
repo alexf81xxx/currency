@@ -1,7 +1,6 @@
-package repo;
+package com.example.currency.repo;
 
-import controllers.TokenController;
-import models.Token;
+import com.example.currency.models.Token;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TokenRepo extends JpaRepository<Token, Long> {
