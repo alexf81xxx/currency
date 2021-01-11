@@ -26,6 +26,7 @@ public class CurrencyApplication {
         String resultToJson = new ObjectMapper().writeValueAsString(currencySerialization);
 		System.out.println(resultToJson);
 
+
 		ObjectMapper mapper = new ObjectMapper();
 
 		CurrencyDeserialization currencyDeserialization = mapper.readValue(CurrencyConnect.getCurrencyAPI(), CurrencyDeserialization.class);
