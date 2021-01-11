@@ -10,14 +10,14 @@ import org.apache.http.util.EntityUtils;
 
 public class CurrencyConnect {
 
-    public static void getCurrencyAPI() throws Exception
+    public static String getCurrencyAPI() throws Exception
     {
         DefaultHttpClient httpClient = new DefaultHttpClient();
         try
         {
             //Define a HttpGet request; You can choose between HttpPost, HttpDelete or HttpPut also.
             //Choice depends on type of method you will be invoking.
-            HttpGet getRequest = new HttpGet("https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=JPY&apikey=" + GetToken.getCurrencyToken());
+            HttpGet getRequest = new HttpGet("https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=RUB&apikey=" + GetToken.getCurrencyToken());
 
             //Set the API media type in http accept header
             getRequest.addHeader("accept", "application/json");
@@ -40,6 +40,7 @@ public class CurrencyConnect {
             //Lets see what we got from API
             System.out.println(apiOutput); //<user id="10"><firstName>demo</firstName><lastName>user</lastName></user>
 
+            return apiOutput;
 
         }
         finally
