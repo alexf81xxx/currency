@@ -1,7 +1,7 @@
 package com.example.currency;
 
 import com.example.currency.connections.CurrencyConnect;
-import com.example.currency.models.Scan;
+import com.example.currency.models.GetToken;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -10,14 +10,9 @@ public class CurrencyApplication {
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(CurrencyApplication.class, args);
+		CurrencyConnect.getCurrencyAPI();
 
 
-
-		//String tokenName = Scan.getTokenName();
-		//String token = Scan.getTokenName();
-
-
-		//CurrencyConnect.getCurrencyAPI();
 	}
 
 }

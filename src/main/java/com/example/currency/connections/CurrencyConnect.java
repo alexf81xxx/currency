@@ -1,13 +1,14 @@
 package com.example.currency.connections;
 
+import com.example.currency.models.GetToken;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-public class CurrencyConnect {
 
+public class CurrencyConnect {
 
     public static void getCurrencyAPI() throws Exception
     {
@@ -16,7 +17,7 @@ public class CurrencyConnect {
         {
             //Define a HttpGet request; You can choose between HttpPost, HttpDelete or HttpPut also.
             //Choice depends on type of method you will be invoking.
-            HttpGet getRequest = new HttpGet("https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=JPY&apikey=40YOM4FTYY2KLQLC");
+            HttpGet getRequest = new HttpGet("https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=JPY&apikey=" + GetToken.getCurrencyToken());
 
             //Set the API media type in http accept header
             getRequest.addHeader("accept", "application/json");
