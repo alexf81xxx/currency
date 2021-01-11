@@ -13,7 +13,7 @@ public class CurrencyApplication {
 
 
 
-		String tokenName = Scan.getTokenName();
+		//String tokenName = Scan.getTokenName();
 		//String token = Scan.getTokenName();
 
 

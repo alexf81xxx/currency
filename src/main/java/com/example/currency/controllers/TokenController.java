@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.currency.repo.TokenRepo;
 
+import java.time.LocalDate;
+
 @RestController // В пакете Spring MVC
 @RequestMapping ("/api/token")
 
@@ -23,14 +25,22 @@ public class TokenController {
     }
 
 
-    @PostMapping ("/add")
-    public ResponseEntity addToken (@RequestBody Token token){
+    @PostMapping("/add")
+    public ResponseEntity addToken(@RequestBody Token token) throws Exception {
 
         Token searchToken = tokenRepo.findByTokenNameAndToken(token.getTokenName(), token.getToken());
-        if (searchToken == null){
-            System.out.println("Нет такого");
-        }
 
-        return ResponseEntity.ok("Token added");
+        if (searchToken == null) {
+
+            token.setCreatedDay(LocalDate.now());
+            token.setTokenName(token.getTokenName());
+            token.setToken(token.getToken());
+            token.setTokenCount(token.getTokenCount() + 1);
+
+        } else {
+            throw new Exception("Token already exist");
+        }
+        Token tokenSaved = tokenRepo.save(token);
+        return ResponseEntity.ok("Token added" + tokenSaved);
     }
 }
