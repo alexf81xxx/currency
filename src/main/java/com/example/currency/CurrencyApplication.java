@@ -1,7 +1,7 @@
 package com.example.currency;
 
 import com.example.currency.connections.CurrencyConnect;
-import com.example.currency.models.FxTopLevelObject;
+import com.example.currency.models.FxObject;
 import com.example.currency.models.CurrencySerialization;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.SpringApplication;
@@ -26,7 +26,7 @@ public class CurrencyApplication {
 
 		ObjectMapper mapper = new ObjectMapper();
 
-		FxTopLevelObject currencyDeserialization = mapper.readValue(CurrencyConnect.getCurrencyAPI(), FxTopLevelObject.class);
+		FxObject currencyDeserialization = mapper.readValue(CurrencyConnect.getCurrencyAPI(), FxObject.class);
 
 
     }

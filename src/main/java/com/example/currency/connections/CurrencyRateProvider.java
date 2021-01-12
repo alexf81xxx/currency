@@ -1,7 +1,8 @@
 package com.example.currency.connections;
 
-import com.example.currency.models.FxTopLevelObject;
+import com.example.currency.models.FxObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -44,10 +45,12 @@ public class CurrencyRateProvider {
     }
 
     public double parseData(String input) {
+
         ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.UNWRAP_ROOT_VALUE, true);
         try {
-            FxTopLevelObject cd = mapper.readValue(input, FxTopLevelObject.class);
-            return cd.getFxInternalObject().getExchangeRate();
+            FxObject cd = mapper.readValue(input, FxObject.class);
+            return cd.getExchangeRate();
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return 0;
