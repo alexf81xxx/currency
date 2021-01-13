@@ -33,6 +33,8 @@ public class CurrencyConnect {
                 throw new RuntimeException("Failed with HTTP error code : " + statusCode);
             }
 
+            //sdfasdf
+
             //Now pull back the response object
             HttpEntity httpEntity = response.getEntity();
             String apiOutput = EntityUtils.toString(httpEntity);
