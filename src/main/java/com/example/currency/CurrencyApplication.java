@@ -28,7 +28,7 @@ public class CurrencyApplication {
 
         /*Десериализация*/
 		ObjectMapper mapper = new ObjectMapper();
-		//CurrencyDeserialization currencyDeserialization = mapper.readValue(CurrencyConnect.getCurrencyAPI(), CurrencyDeserialization.class);
+		CurrencyDeserialization currencyDeserialization = mapper.readValue(CurrencyConnect.getCurrencyAPI(), CurrencyDeserialization.class);
 
 
     }
