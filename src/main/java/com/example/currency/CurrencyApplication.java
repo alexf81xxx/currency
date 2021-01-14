@@ -4,6 +4,7 @@ import com.example.currency.connections.CurrencyConnect;
 import com.example.currency.models.CurrencyDeserialization;
 import com.example.currency.models.CurrencySerialization;
 import com.example.currency.models.GetToken;
+import com.example.currency.models.RealtimeCurrencyExchangeRate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,7 +17,7 @@ public class CurrencyApplication {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(CurrencyApplication.class, args);
 
-        CurrencyConnect.getCurrencyAPI();
+        /*CurrencyConnect.getCurrencyAPI();
 
 		System.out.println("==================");
 
@@ -24,11 +25,14 @@ public class CurrencyApplication {
 				"Russian Ruble", "USD", 74.59, 74.59, 74.59);
 
         String resultToJson = new ObjectMapper().writeValueAsString(currencySerialization);
-		System.out.println(resultToJson);
+		System.out.println(resultToJson);*/
 
         /*Десериализация*/
 		ObjectMapper mapper = new ObjectMapper();
-		CurrencyDeserialization currencyDeserialization = mapper.readValue(CurrencyConnect.getCurrencyAPI(), CurrencyDeserialization.class);
+        RealtimeCurrencyExchangeRate realtimeCurrencyExchangeRate = mapper.readValue(CurrencyConnect.getCurrencyAPI(), RealtimeCurrencyExchangeRate.class);
+
+        System.out.println("==============================");
+        System.out.println(realtimeCurrencyExchangeRate);
 
 
     }
