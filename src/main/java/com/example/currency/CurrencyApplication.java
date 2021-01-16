@@ -1,6 +1,7 @@
 package com.example.currency;
 
 import com.example.currency.connections.CurrencyConnect;
+import com.example.currency.connections.YandexConnect;
 import com.example.currency.models.CurrencyDeserialization;
 import com.example.currency.models.CurrencySerialization;
 import com.example.currency.models.GetToken;
@@ -17,6 +18,8 @@ public class CurrencyApplication {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(CurrencyApplication.class, args);
 
+        YandexConnect.connectYandexAPI();
+
         /*CurrencyConnect.getCurrencyAPI();
 
 		System.out.println("==================");
@@ -28,11 +31,18 @@ public class CurrencyApplication {
 		System.out.println(resultToJson);*/
 
         /*Десериализация*/
-		ObjectMapper mapper = new ObjectMapper();
-        RealtimeCurrencyExchangeRate realtimeCurrencyExchangeRate = mapper.readValue(CurrencyConnect.getCurrencyAPI(), RealtimeCurrencyExchangeRate.class);
+		/*ObjectMapper mapper = new ObjectMapper();
+        RealtimeCurrencyExchangeRate realtimeCurrencyExchangeRate =
+                mapper.readValue(CurrencyConnect.getCurrencyAPI(),
+                        RealtimeCurrencyExchangeRate.class);
+
 
         System.out.println("==============================");
         System.out.println(realtimeCurrencyExchangeRate);
+        System.out.println("За 1 рубль сейчас дают "
+               +realtimeCurrencyExchangeRate
+               .getCurrencyDeserialization()
+               .getBidPrice());*/
 
 
     }

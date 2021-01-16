@@ -13,4 +13,6 @@ import lombok.NoArgsConstructor;
 public class RealtimeCurrencyExchangeRate {
     @JsonProperty ("Realtime Currency Exchange Rate")
     private CurrencyDeserialization currencyDeserialization;
+
+
 }
