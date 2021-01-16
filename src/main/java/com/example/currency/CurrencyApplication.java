@@ -6,6 +6,7 @@ import com.example.currency.models.CurrencyDeserialization;
 import com.example.currency.models.CurrencySerialization;
 import com.example.currency.models.GetToken;
 import com.example.currency.models.RealtimeCurrencyExchangeRate;
+import com.example.currency.queries.YandexQueries;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,7 +19,8 @@ public class CurrencyApplication {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(CurrencyApplication.class, args);
 
-        YandexConnect.connectYandexAPI();
+
+        YandexConnect.getYaAPI(YandexQueries.yandexBrowsers());
 
         /*CurrencyConnect.getCurrencyAPI();
 
