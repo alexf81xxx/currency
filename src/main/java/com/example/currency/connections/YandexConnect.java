@@ -37,19 +37,19 @@ public class YandexConnect {
         return response;
     }*/
 
-    public static String getYaAPI(String query) throws Exception
+    public static String getYaAPI(/*String query, String startData, String endtData */) throws Exception
     {
         DefaultHttpClient httpClient = new DefaultHttpClient();
         try
         {
             //Define a HttpGet request; You can choose between HttpPost, HttpDelete or HttpPut also.
             //Choice depends on type of method you will be invoking.
-            HttpGet getRequest = new HttpGet("https://api-metrika.yandex.net/stat/v1/data?id=69078571"+ query);
+            HttpGet getRequest = new HttpGet(/*"https://api-metrika.yandex.net/stat/v1/data?id=49257631"+"&"+ query+"&"+startData+"&"+endtData*/ "https://api-metrika.yandex.net/stat/v1/data?metrics=ym:s:visits,ym:s:users&id=49257631&date1=2020-01-15&date2=2020-01-16");
 
 
             //Set the API media type in http accept header
             getRequest.addHeader("accept", "application/json");
-            getRequest.addHeader("Authorization", "OAuth AgAAAAA7NVPLAAaxOx2fsvtdl0G7hjPs-UaC4Yo");
+            getRequest.addHeader("Authorization", "OAuth AgAAAAAngk5MAAbSEHilO3iuokb8kJ0xFyKnz8k");
 
 
             //Send the request; It will immediately return the response in HttpResponse object

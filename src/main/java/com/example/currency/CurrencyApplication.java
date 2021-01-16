@@ -20,7 +20,7 @@ public class CurrencyApplication {
         SpringApplication.run(CurrencyApplication.class, args);
 
 
-        YandexConnect.getYaAPI(YandexQueries.yandexBrowsers());
+        YandexConnect.getYaAPI();
 
         /*CurrencyConnect.getCurrencyAPI();
 

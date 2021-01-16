@@ -3,7 +3,7 @@ package com.example.currency.queries;
 public class YandexQueries {
 
     public static String yandexBrowsers(){
-       String browsers = "&preset=tech_platforms&dimensions=ym:s:browser";
+       String browsers = "metrics=ym:s:visits";
        return browsers;
     }
 
