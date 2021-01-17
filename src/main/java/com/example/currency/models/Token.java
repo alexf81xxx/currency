@@ -32,4 +32,7 @@ public class Token {
 
     @Column (name = "date")
     private LocalDate createdDay;
+
+    @Column (name = "counter")
+    private String counter;
 }

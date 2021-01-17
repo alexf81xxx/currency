@@ -36,6 +36,7 @@ public class TokenController {
             token.setTokenName(token.getTokenName());
             token.setToken(token.getToken());
             token.setTokenCount(token.getTokenCount() + 1);
+            token.setCounter(token.getCounter());
 
         } else {
             throw new Exception("Token already exist");
