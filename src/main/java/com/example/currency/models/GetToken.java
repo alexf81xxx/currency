@@ -4,6 +4,8 @@ import com.example.currency.repo.TokenRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+
 @Component
 public class GetToken {
 
@@ -20,6 +22,17 @@ public class GetToken {
 
         String currencyToken = (String) getCurrency.getToken();
         return currencyToken;
+    }
+
+    public static ArrayList<String> getYandex (){
+
+        Token tokenYa = tokenRepo.findByTokenName("yandex");
+        ArrayList<String> getYa = new ArrayList<>();
+        getYa.add(tokenYa.getToken());
+        getYa.add(tokenYa.getCounter());
+
+        return getYa;
+
     }
 
 

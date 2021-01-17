@@ -7,5 +7,6 @@ public interface TokenRepo extends JpaRepository<Token, Long> {
 
     Token findByTokenNameAndToken (String tokenName, String token);
     Token findByTokenName (String tokenName);
+    Token findByCounter (String counter);
 
 }
