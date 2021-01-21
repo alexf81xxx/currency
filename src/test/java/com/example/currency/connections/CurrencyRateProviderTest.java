@@ -1,5 +1,6 @@
 package com.example.currency.connections;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,46 +22,33 @@ class CurrencyRateProviderTest {
             "}";
 
     @Test
-    void getsConnectionString() {
-        String connectionString = new CurrencyRateProvider().getConnectionString("usd", "rub");
-        System.out.println(connectionString);
-    }
-    @Test
-    void downloadsData() {
+    void parsesIntoClassFromDefaultString() {
         var provider = new CurrencyRateProvider();
-        String connectionString = provider.getConnectionString("usd", "rub");
-        String data = provider.downloadCurrencyData(connectionString);
-        System.out.println(data);
+        double fxRate = provider.parseDataIntoSetupClass(predefinedJsonString);
+        assertEquals(73.9858, fxRate);
     }
 
     @Test
-    void parsesJson() {
+    void parsesIntoObjectFromDefaultString() {
         var provider = new CurrencyRateProvider();
-        String connectionString = provider.getConnectionString("usd", "rub");
-        String data = provider.downloadCurrencyData(connectionString);
-        double rate = provider.parseData(data);
-        System.out.println(rate);
+        double fxRate = provider.parseIntoObject(predefinedJsonString);
+        assertEquals(73.9858, fxRate);
     }
 
     @Test
-    void parsesJsonFromDummyString() {
+    void parsesIntoTreeFromDefaultString() {
         var provider = new CurrencyRateProvider();
-        double rate = provider.parseData(predefinedJsonString);
-        System.out.println(rate);
+        double fxRate = provider.parseDataIntoTree(predefinedJsonString);
+        assertEquals(73.9858, fxRate);
     }
 
-    @Test
-    void parsesIntoObjectFromDummyString() {
-        var provider = new CurrencyRateProvider();
-        provider.parseIntoObject(predefinedJsonString);
-    }
-
+    @Disabled
     @Test
     void f2bTest(){
         var provider = new CurrencyRateProvider();
         String connectionString = provider.getConnectionString("rub", "rub");
         String data = provider.downloadCurrencyData(connectionString);
-        double rate = provider.parseData(data);
+        double rate = provider.parseDataIntoSetupClass(data);
         assertEquals(1.0, rate);
     }
 }
