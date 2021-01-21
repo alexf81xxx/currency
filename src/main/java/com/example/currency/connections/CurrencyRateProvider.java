@@ -11,6 +11,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class CurrencyRateProvider {
 
@@ -42,6 +43,23 @@ public class CurrencyRateProvider {
         } finally {
             httpClient.getConnectionManager().shutdown();
         }
+    }
+
+    public double parseIntoObject(String input) {
+
+        double fxRate = 0;
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, Object> jsonObject;
+        try {
+            jsonObject = mapper.readValue(input, Map.class);
+            Map<String, Object> internalContent = (Map<String, Object>) jsonObject.get("Realtime Currency Exchange Rate");
+            String fieldLevelObject = (String) internalContent.get("5. Exchange Rate");
+            fxRate = Double.parseDouble(fieldLevelObject);
+            return fxRate;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return fxRate;
     }
 
     public double parseData(String input) {
