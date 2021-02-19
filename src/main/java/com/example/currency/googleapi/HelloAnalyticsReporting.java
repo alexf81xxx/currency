@@ -31,27 +31,50 @@ import com.google.api.services.analyticsreporting.v4.model.ReportRow;
 public class HelloAnalyticsReporting {
     private static final String APPLICATION_NAME = "Hello Analytics Reporting";
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
-    private static final String KEY_FILE_LOCATION = "B:\\GoogleAPI\\analytics77-1df1966e71a5.json";
+    private static final String KEY_FILE_LOCATION = "gakey.json";
     private static final String VIEW_ID = "177317931";
 
     public static void main(String[] args) {
+        getResultsFromGA();
+    }
+
+    private static void getResultsFromGA(){
         try {
             AnalyticsReporting service = initializeAnalyticsReporting();
 
-            GetReportsResponse response = getReport(service);
+            GetReportsResponse response = getReport(service, "2018-02-01", "today");
             printResponse(response);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * Initializes an Analytics Reporting API V4 service object.
-     *
-     * @return An authorized Analytics Reporting API V4 service object.
-     * @throws IOException
-     * @throws GeneralSecurityException
-     */
+    private static void getResultsFromParametrizedGA(){
+        try {
+            AnalyticsReporting service = initializeAnalyticsReporting();
+
+            Metric sessionsMetric = new Metric().setExpression("ga:sessions").setAlias("sessions");
+            Metric brateMetric = new Metric().setExpression("ga:bounceRate").setAlias("bounceRate");
+
+            List<Metric> metricsToRequest = new ArrayList<>();
+            metricsToRequest.add(sessionsMetric);
+            metricsToRequest.add(brateMetric);
+
+            Dimension pageTitleDimension = new Dimension().setName("ga:pageTitle");
+            Dimension sourceDimension = new Dimension().setName("ga:source");
+
+            List<Dimension> dimensionsToRequest = new ArrayList<>();
+            dimensionsToRequest.add(pageTitleDimension);
+            dimensionsToRequest.add(sourceDimension);
+
+
+            GetReportsResponse response = getParametrizedReport(service, "2018-02-01", "today", metricsToRequest, dimensionsToRequest);
+            printResponse(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private static AnalyticsReporting initializeAnalyticsReporting() throws GeneralSecurityException, IOException {
 
         HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
@@ -64,32 +87,33 @@ public class HelloAnalyticsReporting {
                 .setApplicationName(APPLICATION_NAME).build();
     }
 
-    /**
-     * Queries the Analytics Reporting API V4.
-     *
-     * @param service An authorized Analytics Reporting API V4 service object.
-     * @return GetReportResponse The Analytics Reporting API V4 response.
-     * @throws IOException
-     */
-    private static GetReportsResponse getReport(AnalyticsReporting service) throws IOException {
+    private static GetReportsResponse getReport(AnalyticsReporting service, String startDate, String endDate) throws IOException {
         // Create the DateRange object.
         DateRange dateRange = new DateRange();
-        dateRange.setStartDate("2018-02-01");
-        dateRange.setEndDate("today");
+        dateRange.setStartDate(startDate);
+        dateRange.setEndDate(endDate);
 
         // Create the Metrics object.
-        Metric sessions = new Metric()
-                .setExpression("ga:sessions")
-                .setAlias("sessions");
+        Metric sessionsMetric = new Metric().setExpression("ga:sessions").setAlias("sessions");
+        Metric brateMetric = new Metric().setExpression("ga:bounceRate").setAlias("bounceRate");
 
-        Dimension pageTitle = new Dimension().setName("ga:pageTitle");
+        List<Metric> metricsToRequest = new ArrayList<>();
+        metricsToRequest.add(sessionsMetric);
+        metricsToRequest.add(brateMetric);
+
+        Dimension pageTitleDimension = new Dimension().setName("ga:pageTitle");
+        Dimension sourceDimension = new Dimension().setName("ga:source");
+
+        List<Dimension> dimensionsToRequest = new ArrayList<>();
+        dimensionsToRequest.add(pageTitleDimension);
+        dimensionsToRequest.add(sourceDimension);
 
         // Create the ReportRequest object.
         ReportRequest request = new ReportRequest()
                 .setViewId(VIEW_ID)
                 .setDateRanges(Arrays.asList(dateRange))
-                .setMetrics(Arrays.asList(sessions))
-                .setDimensions(Arrays.asList(pageTitle));
+                .setMetrics(metricsToRequest)
+                .setDimensions(dimensionsToRequest);
 
         ArrayList<ReportRequest> requests = new ArrayList<ReportRequest>();
         requests.add(request);
@@ -105,14 +129,36 @@ public class HelloAnalyticsReporting {
         return response;
     }
 
-    /**
-     * Parses and prints the Analytics Reporting API V4 response.
-     *
-     * @param response An Analytics Reporting API V4 response.
-     */
+    private static GetReportsResponse getParametrizedReport(AnalyticsReporting service, String startDate, String endDate, List<Metric> metrics, List<Dimension> dimensions) throws IOException {
+        // Create the DateRange object.
+        DateRange dateRange = new DateRange();
+        dateRange.setStartDate(startDate);
+        dateRange.setEndDate(endDate);
+
+        // Create the ReportRequest object.
+        ReportRequest request = new ReportRequest()
+                .setViewId(VIEW_ID)
+                .setDateRanges(Arrays.asList(dateRange))
+                .setMetrics(metrics)
+                .setDimensions(dimensions);
+
+        ArrayList<ReportRequest> requests = new ArrayList<ReportRequest>();
+        requests.add(request);
+
+        // Create the GetReportsRequest object.
+        GetReportsRequest getReport = new GetReportsRequest()
+                .setReportRequests(requests);
+
+        // Call the batchGet method.
+        GetReportsResponse response = service.reports().batchGet(getReport).execute();
+
+        // Return the response.
+        return response;
+    }
+
     private static void printResponse(GetReportsResponse response) {
 
-        for (Report report: response.getReports()) {
+        for (Report report : response.getReports()) {
             ColumnHeader header = report.getColumnHeader();
             List<String> dimensionHeaders = header.getDimensions();
             List<MetricHeaderEntry> metricHeaders = header.getMetricHeader().getMetricHeaderEntries();
@@ -123,7 +169,7 @@ public class HelloAnalyticsReporting {
                 return;
             }
 
-            for (ReportRow row: rows) {
+            for (ReportRow row : rows) {
                 List<String> dimensions = row.getDimensions();
                 List<DateRangeValues> metrics = row.getMetrics();
 
