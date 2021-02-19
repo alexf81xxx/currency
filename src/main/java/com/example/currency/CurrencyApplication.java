@@ -2,12 +2,15 @@ package com.example.currency;
 
 import com.example.currency.connections.CurrencyConnect;
 import com.example.currency.connections.YandexConnect;
+import com.example.currency.googleapi.HelloAnalyticsReporting;
 import com.example.currency.models.CurrencyDeserialization;
 import com.example.currency.models.CurrencySerialization;
 import com.example.currency.models.GetToken;
 import com.example.currency.models.RealtimeCurrencyExchangeRate;
 import com.example.currency.queries.YandexQueries;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.api.services.analyticsreporting.v4.AnalyticsReporting;
+import com.google.api.services.analyticsreporting.v4.model.GetReportsResponse;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -15,8 +18,13 @@ import java.io.DataInput;
 
 @SpringBootApplication
 public class CurrencyApplication {
+    public static void main(String[] args) {
+        HelloAnalyticsReporting.main(args);
+    }
 
-    public static void main(String[] args) throws Exception {
+    public static void main2(String[] args) throws Exception {
+
+
         SpringApplication.run(CurrencyApplication.class, args);
 
 
